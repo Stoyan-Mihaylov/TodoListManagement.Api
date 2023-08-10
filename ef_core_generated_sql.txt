@@ -1,0 +1,16 @@
+SELECT [p].[Title]
+      FROM [Items] AS [i]
+      INNER JOIN [Priorities] AS [p] ON [i].[PriorityId] = [p].[Id]
+      ORDER BY [p].[Id] DESC
+
+INSERT INTO [Items] ([Description], [PriorityId], [Status], [Title])
+      OUTPUT INSERTED.[Id]
+      VALUES (@p0, @p1, @p2, @p3);
+
+UPDATE [Items] SET [Description] = @p0, [PriorityId] = @p1, [Status] = @p2, [Title] = @p3
+      OUTPUT 1
+      WHERE [Id] = @p4;
+
+DELETE FROM [Items]
+      OUTPUT 1
+      WHERE [Id] = @p0;
